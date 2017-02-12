@@ -1,0 +1,26 @@
+{
+  "name": "markdown-watch-cat",
+  "version": "0.1.0",
+  "description": "Markdown preview tool",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src --out-dir lib"
+  },
+  "files": [
+    "src",
+    "lib"
+  ],
+  "author": "ushiboy",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "eslint": "^3.15.0"
+  },
+  "dependencies": {
+    "github-markdown-css": "^2.4.1",
+    "marked": "^0.3.6",
+    "websocket": "^1.0.24"
+  }
+}

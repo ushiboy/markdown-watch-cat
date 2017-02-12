@@ -1,0 +1,5 @@
+root = true
+
+[{*html,*.js,*.json,*.less,*.yml}]
+indent_style = space
+indent_size = 2
