@@ -10,6 +10,9 @@
     "src",
     "lib"
   ],
+  "bin": {
+    "mdcat": "./bin/mdcat.js"
+  },
   "author": "ushiboy",
   "license": "MIT",
   "devDependencies": {
@@ -20,6 +23,7 @@
     "flow-bin": "^0.39.0"
   },
   "dependencies": {
+    "argparse": "^1.0.9",
     "github-markdown-css": "^2.4.1",
     "marked": "^0.3.6",
     "websocket": "^1.0.24"

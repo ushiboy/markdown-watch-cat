@@ -4,3 +4,6 @@ declare module 'marked' {
 declare module 'websocket' {
   declare var exports: any;
 }
+declare module 'argparse' {
+  declare var exports: any;
+}
