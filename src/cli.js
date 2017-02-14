@@ -2,7 +2,7 @@
 
 import { ArgumentParser } from 'argparse';
 import path from 'path';
-import { start } from './index';
+import { start } from './server';
 
 const pkg = require('../package.json');
 
@@ -10,7 +10,7 @@ export function run(args: string[]) : void {
   const parser = new ArgumentParser({
     version: pkg.version,
     addHelp: true,
-    description: 'test'
+    description: 'markdown preview'
   });
   parser.addArgument(
     ['path'],
@@ -36,7 +36,7 @@ export function run(args: string[]) : void {
   const cwd = process.cwd();
   start({
     port: parsedArgs.port,
-    markdown: parsedArgs.path,
+    markdownPath: parsedArgs.path,
     themeCssPath: parsedArgs.theme,
     cwd
   });
