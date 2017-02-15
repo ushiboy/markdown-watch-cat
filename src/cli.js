@@ -2,6 +2,7 @@
 
 import { ArgumentParser } from 'argparse';
 import path from 'path';
+import open from 'open';
 import { start } from './server';
 
 const pkg = require('../package.json');
@@ -22,6 +23,7 @@ export function run(args: string[]) : void {
     ['-p', '--port'],
     {
       defaultValue: 8080,
+      type: 'int',
       help: 'port'
     }
   );
@@ -32,6 +34,13 @@ export function run(args: string[]) : void {
       help: 'theme css path'
     }
   );
+  parser.addArgument(
+    ['-s', '--skip-open'],
+    {
+      action: 'storeTrue',
+      help: 'skip open url'
+    }
+  );
   const parsedArgs = parser.parseArgs(args);
   const cwd = process.cwd();
   start({
@@ -39,5 +48,11 @@ export function run(args: string[]) : void {
     markdownPath: parsedArgs.path,
     themeCssPath: parsedArgs.theme,
     cwd
+  })
+  .then(() => {
+    console.log(`http://localhost:${parsedArgs.port}/${parsedArgs.path}`);
+    if (!parsedArgs.skip_open) {
+      open(`http://localhost:${parsedArgs.port}/${parsedArgs.path}`);
+    }
   });
 }

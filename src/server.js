@@ -8,7 +8,7 @@ import { routes } from './route';
 import { respond404 } from './response';
 import type { Environment } from './type';
 
-export function start(env: Environment) : void {
+export function start(env: Environment) : Promise<*> {
   const httpServer = http.createServer((req, res) => {
     const pathname = url.parse(req.url).pathname || '';
     const route = routes.find(r => r.match(pathname));
@@ -40,6 +40,10 @@ export function start(env: Environment) : void {
     });
   });
 
-  httpServer.listen(env.port);
-  console.log(`http://localhost:${env.port}/${env.markdownPath}`);
+  return new Promise((resolve, reject) => {
+    httpServer.once('listening', () => {
+      resolve();
+    });
+    httpServer.listen(env.port);
+  });
 }
