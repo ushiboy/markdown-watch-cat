@@ -7,3 +7,6 @@ declare module 'websocket' {
 declare module 'argparse' {
   declare var exports: any;
 }
+declare module 'open' {
+  declare var exports: any;
+}
