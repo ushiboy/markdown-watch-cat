@@ -7,7 +7,7 @@ export function toMarkdownHtml(filePath: string, data: string): string {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="/theme.css">
   <title>Markdown Preview</title>
   <style type="text/css">
     .markdown-body {
