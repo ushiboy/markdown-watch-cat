@@ -8,7 +8,8 @@
   },
   "files": [
     "src",
-    "lib"
+    "lib",
+    "bin"
   ],
   "bin": {
     "mdcat": "./bin/mdcat.js"
