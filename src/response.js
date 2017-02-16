@@ -7,7 +7,7 @@ export function toMarkdownHtml(filePath: string, data: string): string {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="/theme.css">
   <title>Markdown Preview</title>
   <style type="text/css">
     .markdown-body {
@@ -33,24 +33,6 @@ ${marked(data)}
     };
   })();
   </script>
-</body>
-</html>`;
-}
-
-export function toIndexHtml(files: string[]): string {
-  const links = files.map(f => {
-    return `<li><a href="${f}">${f}</a></li>`;
-  });
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Markdown List</title>
-</head>
-<body>
-  <ul>
-    ${links.join('')}
-  </ul>
 </body>
 </html>`;
 }
