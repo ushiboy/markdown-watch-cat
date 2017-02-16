@@ -5,26 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import url from 'url';
 import type { Environment, Route } from './type';
-import { toMarkdownHtml, toIndexHtml, respond404 } from './response';
-
-
-const indexRoute: Route = {
-  match(path) {
-    return path === '/';
-  },
-
-  handle(req, res, env) {
-    readDir(env.cwd)
-      .then(files => {
-        const markdownFiles = files.filter(f => f.match(/\.md$/) != null);
-        res.write(toIndexHtml(markdownFiles));
-        res.end();
-      })
-      .catch(err => {
-        respond404(res);
-      });
-  }
-};
+import { toMarkdownHtml, respond404 } from './response';
 
 const themeCSSRoute: Route = {
   match(path) {
@@ -57,7 +38,6 @@ const markdownRoute: Route = {
 };
 
 export const routes: Array<Route> = [
-  indexRoute,
   themeCSSRoute,
   markdownRoute
 ];

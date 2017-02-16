@@ -37,24 +37,6 @@ ${marked(data)}
 </html>`;
 }
 
-export function toIndexHtml(files: string[]): string {
-  const links = files.map(f => {
-    return `<li><a href="${f}">${f}</a></li>`;
-  });
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Markdown List</title>
-</head>
-<body>
-  <ul>
-    ${links.join('')}
-  </ul>
-</body>
-</html>`;
-}
-
 export function respond404(res: ServerResponse) {
   res.writeHead(404, { 'Content-Type': 'text/plain' });
   res.write('Not Found');

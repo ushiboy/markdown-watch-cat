@@ -28,6 +28,8 @@
     "github-markdown-css": "^2.4.1",
     "marked": "^0.3.6",
     "open": "0.0.5",
+    "serve-index": "^1.8.0",
+    "serve-static": "^1.11.2",
     "websocket": "^1.0.24"
   }
 }
