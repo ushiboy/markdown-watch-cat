@@ -32,6 +32,7 @@ const markdownRoute: Route = {
         res.end();
       })
       .catch(err => {
+        console.log(err);
         respond404(res);
       });
   }

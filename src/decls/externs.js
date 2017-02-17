@@ -16,3 +16,6 @@ declare module 'serve-index' {
 declare module 'serve-static' {
   declare var exports: any;
 }
+declare module 'chokidar' {
+  declare var exports: any;
+}

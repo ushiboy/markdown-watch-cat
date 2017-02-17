@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "argparse": "^1.0.9",
+    "chokidar": "^1.6.1",
     "github-markdown-css": "^2.4.1",
     "marked": "^0.3.6",
     "open": "0.0.5",
