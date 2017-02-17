@@ -1,6 +1,6 @@
 /* @flow */
 
-import { readTextFile, readDir } from './file';
+import { readTextFile } from './file';
 import fs from 'fs';
 import path from 'path';
 import url from 'url';

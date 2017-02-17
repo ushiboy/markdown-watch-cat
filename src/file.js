@@ -13,15 +13,3 @@ export function readTextFile(path: string): Promise<string> {
     });
   });
 }
-
-export function readDir(path: string): Promise<string[]> {
-  return new Promise((resolve, reject) => {
-    fs.readdir(path, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  });
-}
