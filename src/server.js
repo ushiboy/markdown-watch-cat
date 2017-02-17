@@ -1,10 +1,10 @@
 /* @flow */
 
 import http from 'http';
-import fs from 'fs';
 import url from 'url';
 import serveIndex from 'serve-index';
 import serveStatic from 'serve-static';
+import chokidar from 'chokidar';
 import { server as WebSocketServer } from 'websocket';
 import { routes } from './route';
 import { respond404 } from './response';
@@ -44,9 +44,10 @@ export function start(env: Environment) : Promise<*> {
     connection.on('message', function(message) {
       if (message.type === 'utf8') {
         const markdownFile = message.utf8Data;
-        fs.watchFile(markdownFile, { interval: 500 }, sendReload);
+        const watcher = chokidar.watch(markdownFile);
+        watcher.on('change', sendReload);
         connection.on('close', function(reasonCode, description) {
-          fs.unwatchFile(markdownFile, sendReload);
+          watcher.close();
         });
       }
     });
