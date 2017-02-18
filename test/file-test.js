@@ -1,8 +1,5 @@
 const assert = require('assert');
-
-import fs from 'fs';
-import os from 'os';
-import path from 'path';
+import { createTempFile, clearTempFile, generateTempFilePath } from './helper';
 import { readTextFile } from '../src/file';
 
 describe('file', () => {
@@ -14,28 +11,14 @@ describe('file', () => {
     let filePath;
 
     beforeEach(() => {
-      filePath = path.join(os.tmpdir(), 'test.md');
-      return new Promise((resolve, reject) => {
-        fs.writeFile(filePath, fileContent, e => {
-          if (e) {
-            reject(e);
-          } else {
-            resolve();
-          }
+      return createTempFile('test.md', fileContent)
+        .then(p => {
+          filePath = p;
         });
-      });
     });
 
     afterEach(() => {
-      return new Promise((resolve, reject) => {
-        fs.unlink(filePath, e => {
-          if (e) {
-            reject(e);
-          } else {
-            resolve();
-          }
-        });
-      });
+      return clearTempFile();
     });
 
     it('should return a promise to receive text data', () => {
@@ -45,7 +28,7 @@ describe('file', () => {
     });
 
     it('should return a promise to catch error when file loading fails', () => {
-      const noneFilePath = path.join(os.tmpdir(), Date.now() + 'nothing.md');
+      const noneFilePath = generateTempFilePath(Date.now() + 'nothing.md');
       return readTextFile(noneFilePath).catch(err => {
         assert(err.message === `ENOENT: no such file or directory, open '${noneFilePath}'`);
       });
