@@ -10,5 +10,5 @@ export type Environment = {
 
 export type Route = {
   match: (path: string) => boolean;
-  handle: (req: IncomingMessage, res: ServerResponse, env: Environment) => void;
+  handle: (req: IncomingMessage, res: ServerResponse, env: Environment) => Promise<ServerResponse>;
 }
