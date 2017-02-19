@@ -37,8 +37,9 @@ ${marked(data)}
 </html>`;
 }
 
-export function respond404(res: ServerResponse) {
+export function respond404(res: ServerResponse): ServerResponse {
   res.writeHead(404, { 'Content-Type': 'text/plain' });
   res.write('Not Found');
   res.end();
+  return res;
 }

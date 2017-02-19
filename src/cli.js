@@ -7,7 +7,7 @@ import { start } from './server';
 
 const pkg = require('../package.json');
 
-export function run(args: string[]) : void {
+export function parseArgs(args: string[]): any  {
   const parser = new ArgumentParser({
     version: pkg.version,
     addHelp: true,
@@ -41,8 +41,12 @@ export function run(args: string[]) : void {
       help: 'skip open url'
     }
   );
-  const parsedArgs = parser.parseArgs(args);
+  return parser.parseArgs(args);
+}
+
+export function run(args: string[]) : void {
   const cwd = process.cwd();
+  const parsedArgs = parseArgs(args);
   start({
     port: parsedArgs.port,
     markdownPath: parsedArgs.path,
