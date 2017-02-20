@@ -5,7 +5,7 @@ export type CommandOption = {
   port: number;
   path: string;
   theme: string;
-  skipOpen: boolean;
+  openUrl: boolean;
 }
 
 export type Environment = {

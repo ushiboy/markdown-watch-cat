@@ -36,10 +36,10 @@ export function parseArgs(args: string[]): CommandOption  {
     }
   );
   parser.addArgument(
-    ['-s', '--skip-open'],
+    ['-o', '--open-url'],
     {
       action: 'storeTrue',
-      help: 'skip open url'
+      help: 'open url'
     }
   );
   const parsed = parser.parseArgs(args);
@@ -47,7 +47,7 @@ export function parseArgs(args: string[]): CommandOption  {
     port: parsed.port,
     path: parsed.path,
     theme: parsed.theme,
-    skipOpen: parsed.skip_open
+    openUrl: parsed.open_url
   };
 }
 
@@ -61,7 +61,7 @@ export function run(args: string[]) : void {
   })
   .then(() => {
     console.log(`http://localhost:${option.port}/${option.path}`);
-    if (!option.skipOpen) {
+    if (option.openUrl) {
       open(`http://localhost:${option.port}/${option.path}`);
     }
   });
