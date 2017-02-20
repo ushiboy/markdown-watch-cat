@@ -4,8 +4,9 @@
   "description": "Markdown preview tool",
   "main": "lib/index.js",
   "scripts": {
+    "clean": "rm -rf lib",
     "test": "mocha --require test/setup.js test/**/*-test.js",
-    "build": "flow check && babel src --out-dir lib"
+    "build": "npm run clean && flow check && babel src --out-dir lib"
   },
   "files": [
     "src",
