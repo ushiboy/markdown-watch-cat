@@ -23,7 +23,7 @@ describe('cli', () => {
       });
 
       it('should return skip open off', () => {
-        assert(args.skip_open === false);
+        assert(args.skipOpen === false);
       });
 
     });
@@ -57,7 +57,7 @@ describe('cli', () => {
       const args = parseArgs([path, '-s']);
 
       it('should return skip open on', () => {
-        assert(args.skip_open === true);
+        assert(args.skipOpen === true);
       });
 
     });

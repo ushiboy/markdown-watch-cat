@@ -4,10 +4,11 @@ import { ArgumentParser } from 'argparse';
 import path from 'path';
 import open from 'open';
 import { start } from './server';
+import type { CommandOption } from './type';
 
 const pkg = require('../package.json');
 
-export function parseArgs(args: string[]): any  {
+export function parseArgs(args: string[]): CommandOption  {
   const parser = new ArgumentParser({
     version: pkg.version,
     addHelp: true,
@@ -41,22 +42,28 @@ export function parseArgs(args: string[]): any  {
       help: 'skip open url'
     }
   );
-  return parser.parseArgs(args);
+  const parsed = parser.parseArgs(args);
+  return {
+    port: parsed.port,
+    path: parsed.path,
+    theme: parsed.theme,
+    skipOpen: parsed.skip_open
+  };
 }
 
 export function run(args: string[]) : void {
   const cwd = process.cwd();
-  const parsedArgs = parseArgs(args);
+  const option = parseArgs(args);
   start({
-    port: parsedArgs.port,
-    markdownPath: parsedArgs.path,
-    themeCssPath: parsedArgs.theme,
+    port: option.port,
+    markdownPath: option.path,
+    themeCssPath: option.theme,
     cwd
   })
   .then(() => {
-    console.log(`http://localhost:${parsedArgs.port}/${parsedArgs.path}`);
-    if (!parsedArgs.skip_open) {
-      open(`http://localhost:${parsedArgs.port}/${parsedArgs.path}`);
+    console.log(`http://localhost:${option.port}/${option.path}`);
+    if (!option.skipOpen) {
+      open(`http://localhost:${option.port}/${option.path}`);
     }
   });
 }
