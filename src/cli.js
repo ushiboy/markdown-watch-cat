@@ -4,10 +4,11 @@ import { ArgumentParser } from 'argparse';
 import path from 'path';
 import open from 'open';
 import { start } from './server';
+import type { CommandOption } from './type';
 
 const pkg = require('../package.json');
 
-export function parseArgs(args: string[]): any  {
+export function parseArgs(args: string[]): CommandOption  {
   const parser = new ArgumentParser({
     version: pkg.version,
     addHelp: true,
@@ -35,28 +36,33 @@ export function parseArgs(args: string[]): any  {
     }
   );
   parser.addArgument(
-    ['-s', '--skip-open'],
+    ['-o', '--open-url'],
     {
       action: 'storeTrue',
-      help: 'skip open url'
+      help: 'open url'
     }
   );
-  return parser.parseArgs(args);
+  const parsed = parser.parseArgs(args);
+  return {
+    port: parsed.port,
+    path: parsed.path,
+    theme: parsed.theme,
+    openUrl: parsed.open_url
+  };
 }
 
 export function run(args: string[]) : void {
   const cwd = process.cwd();
-  const parsedArgs = parseArgs(args);
+  const option = parseArgs(args);
   start({
-    port: parsedArgs.port,
-    markdownPath: parsedArgs.path,
-    themeCssPath: parsedArgs.theme,
+    port: option.port,
+    themeCssPath: option.theme,
     cwd
   })
   .then(() => {
-    console.log(`http://localhost:${parsedArgs.port}/${parsedArgs.path}`);
-    if (!parsedArgs.skip_open) {
-      open(`http://localhost:${parsedArgs.port}/${parsedArgs.path}`);
+    console.log(`http://localhost:${option.port}/${option.path}`);
+    if (option.openUrl) {
+      open(`http://localhost:${option.port}/${option.path}`);
     }
   });
 }

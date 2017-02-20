@@ -1,9 +1,15 @@
 /* @flow */
 import { IncomingMessage, ServerResponse } from 'http';
 
+export type CommandOption = {
+  port: number;
+  path: string;
+  theme: string;
+  openUrl: boolean;
+}
+
 export type Environment = {
   port: number;
-  markdownPath: string;
   cwd: string;
   themeCssPath: string;
 }

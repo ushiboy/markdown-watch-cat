@@ -22,8 +22,8 @@ describe('cli', () => {
         assert(args.theme.match(/github-markdown\.css$/) !== null);
       });
 
-      it('should return skip open off', () => {
-        assert(args.skip_open === false);
+      it('should return open url off', () => {
+        assert(args.openUrl === false);
       });
 
     });
@@ -51,13 +51,13 @@ describe('cli', () => {
 
     });
 
-    context('when skipping of open is specified', () => {
+    context('when specifying to open url', () => {
 
       const path = '/path/to/markdown.md';
-      const args = parseArgs([path, '-s']);
+      const args = parseArgs([path, '-o']);
 
       it('should return skip open on', () => {
-        assert(args.skip_open === true);
+        assert(args.openUrl === true);
       });
 
     });
