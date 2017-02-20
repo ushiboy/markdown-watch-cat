@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --require test/setup.js test/**/*-test.js",
-    "build": "flow && babel src --out-dir lib"
+    "build": "flow check && babel src --out-dir lib"
   },
   "files": [
     "src",
