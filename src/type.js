@@ -10,7 +10,6 @@ export type CommandOption = {
 
 export type Environment = {
   port: number;
-  markdownPath: string;
   cwd: string;
   themeCssPath: string;
 }

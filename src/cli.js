@@ -56,7 +56,6 @@ export function run(args: string[]) : void {
   const option = parseArgs(args);
   start({
     port: option.port,
-    markdownPath: option.path,
     themeCssPath: option.theme,
     cwd
   })
