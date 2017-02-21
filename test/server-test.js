@@ -1,7 +1,22 @@
 const assert = require('assert');
+import fs from 'fs';
 import sinon from 'sinon';
 import { IncomingMessage, ServerResponse } from 'http';
-import { serveRoute } from '../src/server';
+import { serveRoute, receiveMessage } from '../src/server';
+import { createTempFile, clearTempFile } from './helper';
+import EventEmitter from 'events';
+
+class DummyWebSocketConnection extends EventEmitter {
+
+  constructor() {
+    super();
+  }
+
+  sendUTF(message) {
+    this.message = message;
+  }
+
+}
 
 describe('server', () => {
 
@@ -33,6 +48,35 @@ describe('server', () => {
       route(req, res, next);
       assert(handle.called === false);
       assert(next.called === true);
+    });
+
+  });
+
+  describe('receiveMessage()', () => {
+
+    afterEach(() => {
+      return clearTempFile();
+    });
+
+    it('should watch file changes and send reload message', () => {
+      const connection = new DummyWebSocketConnection();
+      const receiver = receiveMessage(connection);
+      return createTempFile('markdown.md', '')
+        .then(path => {
+          receiver({ type: 'utf8', utf8Data: path });
+          return new Promise((resolve, reject) => {
+            fs.writeFile(path, 'test', err => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve();
+              }
+            });
+          });
+        })
+        .then(() => {
+          assert(connection.message === 'reload');
+        });
     });
 
   });

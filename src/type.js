@@ -20,3 +20,5 @@ export type Route = {
 }
 
 export type HttpMiddleware = (req: IncomingMessage, res: ServerResponse, next: Function) => mixed;
+
+export type WebSocketMessageHandler = (message: any) => void;

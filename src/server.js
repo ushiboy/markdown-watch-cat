@@ -8,7 +8,7 @@ import chokidar from 'chokidar';
 import { server as WebSocketServer } from 'websocket';
 import { routes } from './route';
 import { respond404 } from './response';
-import type { Environment, Route, HttpMiddleware } from './type';
+import type { Environment, Route, HttpMiddleware, WebSocketMessageHandler } from './type';
 
 
 export function serveRoute(routes: Array<Route>, env: Environment): HttpMiddleware {
@@ -19,6 +19,21 @@ export function serveRoute(routes: Array<Route>, env: Environment): HttpMiddlewa
       route.handle(req, res, env);
     } else {
       next();
+    }
+  };
+}
+
+export function receiveMessage(connection: any): WebSocketMessageHandler {
+  return message => {
+    if (message.type === 'utf8') {
+      const markdownFile = message.utf8Data;
+      const watcher = chokidar.watch(markdownFile);
+      watcher.on('change', () => {
+        connection.sendUTF('reload');
+      });
+      connection.on('close', (reasonCode, description) => {
+        watcher.close();
+      });
     }
   };
 }
@@ -45,22 +60,9 @@ export function start(env: Environment) : Promise<*> {
     httpServer,
     autoAcceptConnections: false
   });
-
-  wsServer.on('request', function(request) {
+  wsServer.on('request', request => {
     const connection = request.accept(null, request.origin);
-    const sendReload = () => {
-      connection.sendUTF('reload');
-    };
-    connection.on('message', function(message) {
-      if (message.type === 'utf8') {
-        const markdownFile = message.utf8Data;
-        const watcher = chokidar.watch(markdownFile);
-        watcher.on('change', sendReload);
-        connection.on('close', function(reasonCode, description) {
-          watcher.close();
-        });
-      }
-    });
+    connection.on('message', receiveMessage(connection));
   });
 
   return new Promise((resolve, reject) => {
