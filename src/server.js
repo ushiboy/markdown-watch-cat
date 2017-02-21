@@ -8,7 +8,20 @@ import chokidar from 'chokidar';
 import { server as WebSocketServer } from 'websocket';
 import { routes } from './route';
 import { respond404 } from './response';
-import type { Environment } from './type';
+import type { Environment, Route, HttpMiddleware } from './type';
+
+
+export function serveRoute(routes: Array<Route>, env: Environment): HttpMiddleware {
+  return (req, res, next) => {
+    const pathname = url.parse(req.url).pathname || '';
+    const route = routes.find(r => r.match(pathname));
+    if (route) {
+      route.handle(req, res, env);
+    } else {
+      next();
+    }
+  };
+}
 
 export function start(env: Environment) : Promise<*> {
 
@@ -16,18 +29,15 @@ export function start(env: Environment) : Promise<*> {
     icons: true
   });
   const statics = serveStatic(env.cwd);
+  const route = serveRoute(routes, env);
 
   const httpServer = http.createServer((req, res) => {
     index(req, res, () => {
-      const pathname = url.parse(req.url).pathname || '';
-      const route = routes.find(r => r.match(pathname));
-      if (route) {
-        route.handle(req, res, env);
-      } else {
+      route(req, res, () => {
         statics(req, res, () => {
           respond404(res);
         });
-      }
+      });
     });
   });
 
