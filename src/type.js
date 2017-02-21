@@ -18,3 +18,7 @@ export type Route = {
   match: (path: string) => boolean;
   handle: (req: IncomingMessage, res: ServerResponse, env: Environment) => Promise<ServerResponse>;
 }
+
+export type HttpMiddleware = (req: IncomingMessage, res: ServerResponse, next: Function) => mixed;
+
+export type WebSocketMessageHandler = (message: any) => void;
