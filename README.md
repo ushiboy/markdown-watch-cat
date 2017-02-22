@@ -5,10 +5,14 @@ Preview the markdown in the browser, and reload after saving your changes.
 ## Usage
 
 ```
-$ mdcat [-h] [-v] [-p PORT] [-t THEME] [-o] path
+$ mdcat README.md
 ```
 
 ## Options
+
+```
+$ mdcat [-h] [-v] [-p PORT] [-t THEME] [-o] path
+```
 
 | Option | Default | Description |
 | :-- | :-- | :-- |
