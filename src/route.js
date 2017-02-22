@@ -8,7 +8,7 @@ import type { Environment, Route } from './type';
 import { toMarkdownHtml, respond404 } from './response';
 
 
-const debuglog = util.debuglog('mdcat');
+const debuglog = util.debuglog('mwcat');
 
 export const themeCSSRoute: Route = {
   match(path) {

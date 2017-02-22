@@ -5,11 +5,14 @@ import url from 'url';
 import serveIndex from 'serve-index';
 import serveStatic from 'serve-static';
 import chokidar from 'chokidar';
+import util from 'util';
 import { server as WebSocketServer } from 'websocket';
 import { routes } from './route';
 import { respond404 } from './response';
 import type { Environment, Route, HttpMiddleware, WebSocketMessageHandler } from './type';
 
+
+const debuglog = util.debuglog('mwcat');
 
 export function serveRoute(routes: Array<Route>, env: Environment): HttpMiddleware {
   return (req, res, next) => {
@@ -28,10 +31,13 @@ export function receiveMessage(connection: any): WebSocketMessageHandler {
     if (message.type === 'utf8') {
       const markdownFile = message.utf8Data;
       const watcher = chokidar.watch(markdownFile);
+      debuglog(`start watch [${markdownFile}]`);
       watcher.on('change', () => {
+        debuglog(`send reload message`);
         connection.sendUTF('reload');
       });
       connection.on('close', (reasonCode, description) => {
+        debuglog(`close watch`);
         watcher.close();
       });
     }

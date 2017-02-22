@@ -14,7 +14,7 @@
     "bin"
   ],
   "bin": {
-    "mdcat": "./bin/mdcat.js"
+    "mwcat": "./bin/mwcat.js"
   },
   "author": "ushiboy",
   "license": "MIT",
