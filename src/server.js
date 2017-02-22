@@ -12,7 +12,7 @@ import { respond404 } from './response';
 import type { Environment, Route, HttpMiddleware, WebSocketMessageHandler } from './type';
 
 
-const debuglog = util.debuglog('mdcat');
+const debuglog = util.debuglog('mwcat');
 
 export function serveRoute(routes: Array<Route>, env: Environment): HttpMiddleware {
   return (req, res, next) => {
