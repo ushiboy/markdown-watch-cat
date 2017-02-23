@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Markdown preview tool",
   "main": "lib/index.js",
+  "repository": "https://github.com/ushiboy/markdown-watch-cat",
   "scripts": {
     "clean": "rm -rf lib",
     "test": "mocha --require test/setup.js test/**/*-test.js",
