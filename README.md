@@ -17,10 +17,13 @@ $ mwcat [-h] [-v] [-p PORT] [-t THEME] [-o] path
 | Option | Default | Description |
 | :-- | :-- | :-- |
 | -p, --port | 8080 | listen port number |
-| -t, --theme | github-markdown.css | preview theme css file path |
-| -o, --open-url | (open) | open url |
+| -t, --theme | [github-markdown.css](https://www.npmjs.com/package/github-markdown-css) | preview theme css file path |
+| -o, --open-url |  | open url |
 
 ## Installation
+
+
+### GitHub Checkout
 
 ```
 $ git clone https://github.com/ushiboy/markdown-watch-cat.git
