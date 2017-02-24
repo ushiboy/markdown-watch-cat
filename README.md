@@ -22,6 +22,12 @@ $ mwcat [-h] [-v] [-p PORT] [-t THEME] [-o] path
 
 ## Installation
 
+### npm
+
+```
+$ npm install -g markdown-watch-cat
+```
+
 
 ### GitHub Checkout
 
