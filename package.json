@@ -1,6 +1,6 @@
 {
   "name": "markdown-watch-cat",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Markdown preview tool",
   "main": "lib/index.js",
   "repository": "https://github.com/ushiboy/markdown-watch-cat",
@@ -34,12 +34,12 @@
   },
   "dependencies": {
     "argparse": "^1.0.9",
-    "chokidar": "^1.6.1",
+    "chokidar": "^1.7.0",
     "github-markdown-css": "^2.4.1",
-    "marked": "^0.3.6",
+    "marked": "^0.3.7",
     "open": "0.0.5",
-    "serve-index": "^1.8.0",
-    "serve-static": "^1.11.2",
-    "websocket": "^1.0.24"
+    "serve-index": "^1.9.1",
+    "serve-static": "^1.13.1",
+    "websocket": "^1.0.25"
   }
 }
